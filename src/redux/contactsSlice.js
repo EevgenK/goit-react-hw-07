@@ -65,7 +65,12 @@ export const selectFilteredContacts = createSelector(
       : contacts.filter(({ name, number }) => {
           return name.toLowerCase().includes(search) || number.includes(search);
         });
-    return items;
+
+    return items.length > 0
+      ? items.toSorted((a, b) =>
+          a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+        )
+      : items;
   }
 );
 
